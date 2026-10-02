@@ -58,6 +58,7 @@ pipeline {
                         sh '''
                             kubectl apply -f entrega.yaml
                             kubectl rollout status deployment/app-danilo-sepulveda - ${K8S_NAMESPACE}
+                            '''
                     }
                 }
             }
