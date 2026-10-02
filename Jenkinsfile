@@ -33,20 +33,12 @@ pipeline {
                         export DOCKER_CONFIG=/docker-config/dockerhub
                         test -s ${DOCKER_CONFIG}/config.json
 
-                        buildctl-daemonless.sh build \
-                        --frontend dockerfile.v0
-                        --local context=. \
-                        --local dockerfile=. \
-                        --output type=image,\"name=${DH_REPO}:danilo-sepulveda\",push=true
+                        buildctl-daemonless.sh build --frontend dockerfile.v0 local context=. local dockerfile=. output type=image,\"name=${DH_REPO}:danilo-sepulveda\",push=true
 
                         export DOCKER_CONFIG=/docker-config/github
                         test -s ${DOCKER_CONFIG}/config.json
 
-                        buildctl-daemonless.sh build \
-                        --frontend dockerfile.v0
-                        --local context=. \
-                        --local dockerfile=. \
-                        --output type=image,\"name=${GH_REPO}:danilo-sepulveda\",push=true
+                        buildctl-daemonless.sh build frontend dockerfile.v0 local context=. local dockerfile=. -output type=image,\"name=${GH_REPO}:danilo-sepulveda\",push=true
                         '''
                 }
             }
