@@ -1,0 +1,500 @@
+Started by user Jenkins Admin
+Obtained Jenkinsfile from git https://github.com/danilosepulveda/tarea-final.git
+[Pipeline] Start of Pipeline
+[Pipeline] readTrusted
+Obtained agent.yaml from git https://github.com/danilosepulveda/tarea-final.git
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/danilo-sepulveda-8-1crw2-1grcl-2fpj2
+[PodInfo] jenkins/danilo-sepulveda-8-1crw2-1grcl-2fpj2
+	Container [buildkit] waiting [ContainerCreating] No message
+	Container [herramientas] waiting [ContainerCreating] No message
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kubectl-tool] waiting [ContainerCreating] No message
+	Container [node-tool] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [herramientas node-tool kubectl-tool buildkit jnlp]
+[PodInfo] jenkins/danilo-sepulveda-8-1crw2-1grcl-2fpj2
+	Container [buildkit] waiting [ContainerCreating] No message
+	Container [herramientas] waiting [ContainerCreating] No message
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kubectl-tool] waiting [ContainerCreating] No message
+	Container [node-tool] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [herramientas node-tool kubectl-tool buildkit jnlp]
+Agent danilo-sepulveda-8-1crw2-1grcl-2fpj2 is provisioned from template danilo-sepulveda_8-1crw2-1grcl
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    kubernetes.jenkins.io/last-refresh: "1790981538841"
+    buildUrl: "http://jenkins.jenkins.svc.cluster.local:8080/job/danilo-sepulveda/8/"
+    runUrl: "job/danilo-sepulveda/8/"
+  labels:
+    jenkins/jenkins-jenkins-agent: "true"
+    jenkins/label-digest: "bec8525c177ab402aed4792896774731d4cbf0b6"
+    jenkins/label: "danilo-sepulveda_8-1crw2"
+    kubernetes.jenkins.io/controller: "http___jenkins_jenkins_svc_cluster_local_8080x"
+  name: "danilo-sepulveda-8-1crw2-1grcl-2fpj2"
+  namespace: "jenkins"
+spec:
+  containers:
+  - command:
+    - "cat"
+    image: "alpine:3.23"
+    name: "herramientas"
+    resources:
+      limits:
+        cpu: "1000m"
+        memory: "512Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+    tty: true
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - command:
+    - "cat"
+    image: "node:24"
+    name: "node-tool"
+    resources:
+      limits:
+        cpu: "1000m"
+        memory: "512Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+    tty: true
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - command:
+    - "cat"
+    image: "alpine/k8s:1.36.1"
+    name: "kubectl-tool"
+    resources:
+      limits:
+        cpu: "1000m"
+        memory: "512Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+    tty: true
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - command:
+    - "cat"
+    image: "moby/buildkit:rootless"
+    name: "buildkit"
+    resources:
+      limits:
+        cpu: "1000m"
+        memory: "2Gi"
+      requests:
+        cpu: "1000m"
+        memory: "256Mi"
+    tty: true
+    volumeMounts:
+    - mountPath: "/docker-config/dockerhub"
+      name: "regcred-dh"
+      readOnly: true
+    - mountPath: "/docker-config/github"
+      name: "regcred-gh"
+      readOnly: true
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "danilo-sepulveda-8-1crw2-1grcl-2fpj2"
+    - name: "REMOTING_OPTS"
+      value: "-noReconnectAfter 1d"
+    - name: "JENKINS_NAME"
+      value: "danilo-sepulveda-8-1crw2-1grcl-2fpj2"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:3391.va_37fa_a_305d6d-1-jdk25"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  volumes:
+  - name: "regcred-gh"
+    secret:
+      items:
+      - key: ".dockerconfigjson"
+        path: "config.json"
+      secretName: "regcred-gh"
+  - name: "regcred-dh"
+    secret:
+      items:
+      - key: ".dockerconfigjson"
+        path: "config.json"
+      secretName: "regcred-dh"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on danilo-sepulveda-8-1crw2-1grcl-2fpj2 in /home/jenkins/agent/workspace/danilo-sepulveda
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/danilosepulveda/tarea-final.git
+ > git init /home/jenkins/agent/workspace/danilo-sepulveda # timeout=10
+Fetching upstream changes from https://github.com/danilosepulveda/tarea-final.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/danilosepulveda/tarea-final.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/danilosepulveda/tarea-final.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 0003fa0bf711a65e488fa692a8ef4a23930b3ab5 (refs/remotes/origin/main)
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0003fa0bf711a65e488fa692a8ef4a23930b3ab5 # timeout=10
+Commit message: "Corrige buildkit pipeline"
+ > git rev-list --no-walk 494fe395622b6b9ceb0d90e409731c3b46e592bb # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (install)
+[Pipeline] sh
++ corepack enable
+[Pipeline] sh
++ pnpm install --frozen-lockfile
+! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-12.8.1.tgz
+Downloading the pnpm 12.8.1 binary for linux-x64...
+? Verifying lockfile against supply-chain policies (670 entries)...
+Packages are copied from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/jenkins/agent/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 643, reused 0, downloaded 186, added 160
+Progress: resolved 643, reused 0, downloaded 263, added 256
+[WARN] Tarball download average speed 15 KiB/s (size 18 KiB) is below 50 KiB/s: https://registry.npmjs.org/mime/-/mime-2.6.0.tgz (GET)
+[WARN] Tarball download average speed 28 KiB/s (size 28 KiB) is below 50 KiB/s: https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.14.1.tgz (GET)
+[WARN] Tarball download average speed 28 KiB/s (size 28 KiB) is below 50 KiB/s: https://registry.npmjs.org/semver/-/semver-7.8.1.tgz (GET)
+[WARN] Tarball download average speed 42 KiB/s (size 72 KiB) is below 50 KiB/s: https://registry.npmjs.org/glob/-/glob-10.5.0.tgz (GET)
+Progress: resolved 643, reused 0, downloaded 377, added 352
+Progress: resolved 643, reused 0, downloaded 427, added 416
+Progress: resolved 643, reused 0, downloaded 481, added 480
+✓ Lockfile passes supply-chain policies (670 entries in 6.6s)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 643, reused 0, downloaded 640, added 640
+Packages: +643
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 643, reused 0, downloaded 643, added 643, done
+
+dependencies:
++ @nestjs/common 11.1.24
++ @nestjs/core 11.1.24
++ @nestjs/platform-express 11.1.24
++ reflect-metadata 0.2.2
++ rxjs 7.8.2
+
+devDependencies:
++ @eslint/eslintrc 3.3.5
++ @eslint/js 9.39.4
++ @nestjs/cli 11.0.21
++ @nestjs/schematics 11.1.0
++ @nestjs/testing 11.1.24
++ @types/express 5.0.6
++ @types/jest 30.0.0
++ @types/node 24.12.4
++ @types/supertest 7.2.0
++ eslint 9.39.4
++ eslint-config-prettier 10.1.8
++ eslint-plugin-prettier 5.5.6
++ globals 17.6.0
++ jest 30.4.2
++ prettier 3.8.3
++ source-map-support 0.5.21
++ supertest 7.2.2
++ ts-jest 29.4.11
++ ts-loader 9.6.0
++ ts-node 10.9.2
++ tsconfig-paths 4.2.0
++ typescript 5.9.3
++ typescript-eslint 8.60.0
+
+Done in 8.6s using pnpm v12.8.1
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (test)
+[Pipeline] sh
++ pnpm build
+$ nest build
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (push)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ export 'DOCKER_CONFIG=/docker-config/dockerhub'
++ test -s /docker-config/dockerhub/config.json
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=danilosepulvedaf/tarea-final:danilo-sepulveda,push=true'
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 217B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 DONE 1.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 71B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#5 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.0s done
+#5 ...
+
+#6 [internal] load build context
+#6 transferring context: 230.48kB 0.0s done
+#6 DONE 0.1s
+
+#5 [1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#5 sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 447B / 447B 0.2s
+#5 sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 447B / 447B 0.2s done
+#5 sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 0B / 1.26MB 0.3s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 0B / 55.59MB 0.2s
+#5 sha256:e2de96513ba9eb53b431787ec8a65cdde380ac4772a3e4c4b714dcfde2a102b5 0B / 3.85MB 0.2s
+#5 sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 1.26MB / 1.26MB 0.4s done
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 4.19MB / 55.59MB 0.6s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 9.44MB / 55.59MB 0.9s
+#5 sha256:e2de96513ba9eb53b431787ec8a65cdde380ac4772a3e4c4b714dcfde2a102b5 3.85MB / 3.85MB 0.8s done
+#5 extracting sha256:e2de96513ba9eb53b431787ec8a65cdde380ac4772a3e4c4b714dcfde2a102b5
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 13.63MB / 55.59MB 1.1s
+#5 extracting sha256:e2de96513ba9eb53b431787ec8a65cdde380ac4772a3e4c4b714dcfde2a102b5 0.3s done
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 20.97MB / 55.59MB 1.4s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 25.17MB / 55.59MB 1.5s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 29.36MB / 55.59MB 1.7s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 32.51MB / 55.59MB 1.8s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 35.65MB / 55.59MB 2.0s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 38.80MB / 55.59MB 2.1s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 42.99MB / 55.59MB 2.3s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 46.14MB / 55.59MB 2.4s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 50.33MB / 55.59MB 2.6s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 54.53MB / 55.59MB 2.7s
+#5 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 55.59MB / 55.59MB 2.8s done
+#5 extracting sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937
+#5 extracting sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 2.8s done
+#5 DONE 5.9s
+
+#5 [1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#5 extracting sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 0.1s done
+#5 extracting sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 0.0s done
+#5 DONE 6.0s
+
+#7 [2/6] WORKDIR /app
+#7 DONE 0.0s
+
+#8 [3/6] RUN corepack enable
+#8 DONE 0.2s
+
+#9 [4/6] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#9 DONE 0.1s
+
+#10 [5/6] COPY . .
+#10 DONE 0.1s
+
+#11 [6/6] RUN pnpm build
+#11 0.337 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-12.8.1.tgz
+#11 1.215 Downloading the pnpm 12.8.1 binary for linux-x64...
+#11 4.349 ? Verifying lockfile against supply-chain policies (670 entries)...
+#11 4.845 Packages are hard linked from the content-addressable store to the virtual store.
+#11 4.845   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#11 4.845   Virtual store is at:             node_modules/.pnpm
+#11 5.928 Progress: resolved 643, reused 0, downloaded 142, added 128
+#11 6.931 Progress: resolved 643, reused 0, downloaded 235, added 224
+#11 8.400 Progress: resolved 643, reused 0, downloaded 283, added 256
+#11 9.539 Progress: resolved 643, reused 0, downloaded 344, added 320
+#11 10.63 Progress: resolved 643, reused 0, downloaded 443, added 416
+#11 11.63 Progress: resolved 643, reused 0, downloaded 544, added 536
+#11 12.63 Progress: resolved 643, reused 0, downloaded 634, added 608
+#11 14.14 Progress: resolved 643, reused 0, downloaded 641, added 640
+#11 15.07 ✓ Lockfile passes supply-chain policies (670 entries in 10.7s)
+#11 15.07 Lockfile is up to date, resolution step is skipped
+#11 15.13 Packages: +643
+#11 15.13 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#11 15.73 Progress: resolved 643, reused 0, downloaded 643, added 643, done
+#11 16.05 
+#11 16.05 dependencies:
+#11 16.05 + @nestjs/common 11.1.24
+#11 16.05 + @nestjs/core 11.1.24
+#11 16.05 + @nestjs/platform-express 11.1.24
+#11 16.05 + reflect-metadata 0.2.2
+#11 16.05 + rxjs 7.8.2
+#11 16.05 
+#11 16.05 devDependencies:
+#11 16.05 + @eslint/eslintrc 3.3.5
+#11 16.05 + @eslint/js 9.39.4
+#11 16.05 + @nestjs/cli 11.0.21
+#11 16.05 + @nestjs/schematics 11.1.0
+#11 16.05 + @nestjs/testing 11.1.24
+#11 16.05 + @types/express 5.0.6
+#11 16.05 + @types/jest 30.0.0
+#11 16.05 + @types/node 24.12.4
+#11 16.05 + @types/supertest 7.2.0
+#11 16.05 + eslint 9.39.4
+#11 16.05 + eslint-config-prettier 10.1.8
+#11 16.05 + eslint-plugin-prettier 5.5.6
+#11 16.05 + globals 17.6.0
+#11 16.05 + jest 30.4.2
+#11 16.05 + prettier 3.8.3
+#11 16.05 + source-map-support 0.5.21
+#11 16.05 + supertest 7.2.2
+#11 16.05 + ts-jest 29.4.11
+#11 16.05 + ts-loader 9.6.0
+#11 16.05 + ts-node 10.9.2
+#11 16.05 + tsconfig-paths 4.2.0
+#11 16.05 + typescript 5.9.3
+#11 16.05 + typescript-eslint 8.60.0
+#11 16.05 
+#11 16.16 Done in 11.9s using pnpm v12.8.1
+#11 16.17 $ nest build
+#11 DONE 22.5s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 12.0s done
+#12 exporting manifest sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c 0.0s done
+#12 exporting config sha256:52cadf18fa3f025bf80ad8e0f15cc2cf544d256827e46ca6f894f9b5c3af48a1 0.0s done
+#12 pushing layers
+#12 ...
+
+#13 [auth] danilosepulvedaf/tarea-final:pull,push token for registry-1.docker.io
+#13 DONE 0.0s
+
+#12 exporting to image
+#12 pushing layers 18.8s done
+#12 pushing manifest for docker.io/danilosepulvedaf/tarea-final:danilo-sepulveda@sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c
+#12 pushing manifest for docker.io/danilosepulvedaf/tarea-final:danilo-sepulveda@sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c 1.8s done
+#12 DONE 32.6s
++ export 'DOCKER_CONFIG=/docker-config/github'
++ test -s /docker-config/github/config.json
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=ghcr.io/danilosepulveda/tarea-final:danilo-sepulveda,push=true'
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 217B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 DONE 0.9s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 71B done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#4 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 889B done
+#5 DONE 0.0s
+
+#6 [2/6] WORKDIR /app
+#6 CACHED
+
+#7 [4/6] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#7 CACHED
+
+#8 [3/6] RUN corepack enable
+#8 CACHED
+
+#9 [5/6] COPY . .
+#9 CACHED
+
+#10 [6/6] RUN pnpm build
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers 0.0s done
+#11 exporting manifest sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c
+#11 exporting manifest sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c 0.0s done
+#11 exporting config sha256:52cadf18fa3f025bf80ad8e0f15cc2cf544d256827e46ca6f894f9b5c3af48a1 0.0s done
+#11 pushing layers
+#11 ...
+
+#12 [auth] danilosepulveda/tarea-final:pull,push token for ghcr.io
+#12 DONE 0.0s
+
+#11 exporting to image
+#11 pushing layers 13.1s done
+#11 pushing manifest for ghcr.io/danilosepulveda/tarea-final:danilo-sepulveda@sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c
+#11 pushing manifest for ghcr.io/danilosepulveda/tarea-final:danilo-sepulveda@sha256:59b789dbbb0a7d305a9cbfc664565e518dc2054dd413ba759959ad7ceb05e48c 0.8s done
+#11 DONE 14.0s
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (deploy)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] withKubeConfig
+[Pipeline] {
+[Pipeline] sh
++ kubectl apply -f entrega.yaml
+namespace/ns-danilo-sepulveda unchanged
+configmap/config-danilo-sepulveda unchanged
+secret/secret-danilo-sepulveda configured
+deployment.apps/app-danilo-sepulveda unchanged
+service/svc-danilo-sepulveda unchanged
++ kubectl rollout status deployment/app-danilo-sepulveda -n ns-danilo-sepulveda
+deployment "app-danilo-sepulveda" successfully rolled out
+[Pipeline] }
+[kubernetes-cli] kubectl configuration cleaned up
+[Pipeline] // withKubeConfig
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Finished: SUCCESS
